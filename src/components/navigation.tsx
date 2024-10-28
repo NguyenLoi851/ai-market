@@ -36,7 +36,7 @@ export const Navigation = () => {
           />
         </Link>
         <div className="navbar-nav pt-1">
-          <button className="btn btn-secondary" onClick={action || (() => {})}>
+          <button className="bg-blue-300" onClick={action || (() => {})}>
             {label}
           </button>
         </div>

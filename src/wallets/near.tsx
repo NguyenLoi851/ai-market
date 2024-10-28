@@ -5,7 +5,6 @@ import {
   WalletSelector,
   NetworkId,
 } from "@near-wallet-selector/core";
-import { setupEthereumWallets } from "@near-wallet-selector/ethereum-wallets";
 import { setupLedger } from "@near-wallet-selector/ledger";
 import { setupMeteorWallet } from "@near-wallet-selector/meteor-wallet";
 import { setupModal } from "@near-wallet-selector/modal-ui";
