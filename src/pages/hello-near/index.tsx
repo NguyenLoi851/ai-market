@@ -5,47 +5,28 @@ import styles from "@/styles/app.module.css";
 import { NearContext } from "@/wallets/near";
 
 import { HelloNearContract } from "../../config";
+import { useViewGreeting } from "@/hooks/use-view-greeting";
+import { useSetGreeting } from "@/hooks/use-set-greeting";
 
 // Contract that the app will interact with
 const CONTRACT = HelloNearContract;
 
 export default function HelloNear() {
-  const { signedAccountId, wallet } = useContext(NearContext);
+  const { signedAccountId } = useContext(NearContext);
 
-  const [greeting, setGreeting] = useState("loading...");
   const [newGreeting, setNewGreeting] = useState("loading...");
   const [loggedIn, setLoggedIn] = useState(false);
-  const [showSpinner, setShowSpinner] = useState(false);
 
-  useEffect(() => {
-    if (!wallet) return;
-
-    wallet
-      .viewMethod({ contractId: CONTRACT, method: "get_greeting" })
-      .then((greeting) => setGreeting(greeting));
-  }, [wallet]);
+  const { data: greeting } = useViewGreeting();
+  const { mutateAsync: setGreeting, isLoading: greetingLoading } =
+    useSetGreeting();
 
   useEffect(() => {
     setLoggedIn(!!signedAccountId);
   }, [signedAccountId]);
 
   const saveGreeting = async () => {
-    if (!wallet) {
-      console.error("Wallet is not defined");
-      return; // or handle the error accordingly
-    }
-    setShowSpinner(true);
-    await wallet.callMethod({
-      contractId: CONTRACT,
-      method: "set_greeting",
-      args: { greeting: newGreeting },
-    });
-    const greeting = await wallet.viewMethod({
-      contractId: CONTRACT,
-      method: "get_greeting",
-    });
-    setGreeting(greeting);
-    setShowSpinner(false);
+    await setGreeting(newGreeting);
   };
 
   return (
@@ -59,7 +40,7 @@ export default function HelloNear() {
 
       <div className={styles.center}>
         <h1 className="w-100">
-          The contract says: <code>{greeting}</code>
+          The contract says - fetch from hook: <code>{greeting}</code>
         </h1>
         <div className="input-group" hidden={!loggedIn}>
           <input
@@ -70,10 +51,10 @@ export default function HelloNear() {
           />
           <div className="input-group-append">
             <button className="bg-green-300" onClick={saveGreeting}>
-              <span hidden={showSpinner}> Save </span>
+              <span hidden={greetingLoading}> Save </span>
               <i
                 className="spinner-border spinner-border-sm"
-                hidden={!showSpinner}
+                hidden={!greetingLoading}
               ></i>
             </button>
           </div>
@@ -82,7 +63,6 @@ export default function HelloNear() {
           <p className=""> Please login to change the greeting </p>
         </div>
       </div>
-      {/* <Cards /> */}
     </main>
   );
 }
