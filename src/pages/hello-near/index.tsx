@@ -64,12 +64,12 @@ export default function HelloNear() {
         <div className="input-group" hidden={!loggedIn}>
           <input
             type="text"
-            className="form-control w-20"
+            className="border-black border-2"
             placeholder="Store a new greeting"
             onChange={(t) => setNewGreeting(t.target.value)}
           />
           <div className="input-group-append">
-            <button className="btn btn-secondary" onClick={saveGreeting}>
+            <button className="bg-green-300" onClick={saveGreeting}>
               <span hidden={showSpinner}> Save </span>
               <i
                 className="spinner-border spinner-border-sm"
@@ -78,11 +78,11 @@ export default function HelloNear() {
             </button>
           </div>
         </div>
-        <div className="w-100 text-end align-text-center" hidden={loggedIn}>
-          <p className="m-0"> Please login to change the greeting </p>
+        <div className="" hidden={loggedIn}>
+          <p className=""> Please login to change the greeting </p>
         </div>
       </div>
-      <Cards />
+      {/* <Cards /> */}
     </main>
   );
 }

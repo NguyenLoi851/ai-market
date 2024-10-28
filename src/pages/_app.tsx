@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { NetworkId } from "@/config";
 import { NearContext, Wallet } from "@/wallets/near";
 import { Navigation } from "@/components/navigation";
+import { MainLayout } from "@/layouts";
 
 const wallet = new Wallet({ networkId: NetworkId });
 
@@ -16,8 +17,9 @@ export default function App({ Component, pageProps }: AppProps) {
 
   return (
     <NearContext.Provider value={{ wallet, signedAccountId }}>
-      <Navigation />
-      <Component {...pageProps} />
+      <MainLayout>
+        <Component {...pageProps} />
+      </MainLayout>
     </NearContext.Provider>
   );
 }
