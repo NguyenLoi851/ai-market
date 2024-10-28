@@ -23,9 +23,9 @@ export const Navigation = () => {
   }, [signedAccountId, wallet]);
 
   return (
-    <nav className="navbar navbar-expand-lg">
-      <div className="container-fluid">
-        <Link href="/" passHref legacyBehavior>
+    <nav className="navbar navbar-expand-lg w-full">
+      <div className="container-fluid flex items-center space-x-4 text-gray-500 ">
+        <Link href="/" passHref legacyBehavior >
           <Image
             priority
             src={NearLogo}
@@ -35,6 +35,22 @@ export const Navigation = () => {
             className="d-inline-block align-text-top"
           />
         </Link>
+
+        <div className="font-bold text-lg flex items-center">
+          <Link href="#">
+            <div className="hover:text-black pl-8">Documentation</div>
+          </Link>
+          <Link href="#">
+            <div className="hover:text-black pl-8">Guides</div>
+          </Link>
+          <Link href="#">
+            <div className="hover:text-black pl-8">Help</div>
+          </Link>
+        </div>
+        
+
+        <div className="flex-1"></div>
+
         <div className="navbar-nav pt-1">
           <button className="bg-blue-300" onClick={action || (() => {})}>
             {label}
