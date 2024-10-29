@@ -11,7 +11,13 @@ export function useRegisterModel() {
   const queryClient = useQueryClient();
 
   const mutation = useMutation(
-    async ({ feePerPrompt }: { feePerPrompt: string }) => {
+    async ({
+      feePerPrompt,
+      metadataId,
+    }: {
+      feePerPrompt: string;
+      metadataId: number;
+    }) => {
       if (!wallet) return;
 
       const result = await wallet.callMethod({
@@ -19,6 +25,7 @@ export function useRegisterModel() {
         method: "register_model",
         args: {
           fee_per_prompt: new BigNumber(feePerPrompt).shiftedBy(8).toString(),
+          metadata_id: metadataId,
         },
       });
 

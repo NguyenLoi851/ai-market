@@ -5,7 +5,7 @@ const helloContractPerNetwork = {
 
 const paymentContractPerNetwork = {
   mainnet: "hello.near-examples.near",
-  testnet: "narrow-shade.testnet",
+  testnet: "high-pitched-battle.testnet",
 };
 
 const ftContractPerNetwork = {

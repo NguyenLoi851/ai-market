@@ -16,6 +16,9 @@ import { useBatchTransferToken } from "@/hooks/batch/use-batch-transfer-token";
 import { useBatchRegisterModel } from "@/hooks/batch/use-batch-register-model";
 import { useBatchPayModel } from "@/hooks/batch/use-batch-pay-model";
 import { useWithdraw } from "@/hooks/payment/use-withdraw";
+import { useGetModalByMetadataId } from "@/hooks/payment/use-get-model-by-metadata-id";
+import { useGetModelsByCreator } from "@/hooks/payment/use-get-models-by-creator";
+import { useGetAllModels } from "@/hooks/payment/use-get-all-models";
 
 export default function HelloPayment() {
   const { signedAccountId } = useContext(NearContext);
@@ -57,6 +60,8 @@ export default function HelloPayment() {
   /* ========================== Payment contract ========================== */
   const [modelId, setModelId] = useState(1);
   const [feePerPrompt, setFeePerPrompt] = useState("");
+  const [metadataId, setMetadataId] = useState(0);
+  const [creator, setCreator] = useState("");
   const [updateModelId, setUpdateModelId] = useState(1);
   const [newFeePerPrompt, setNewFeePerPrompt] = useState("");
   const [newCreator, setNewCreator] = useState("");
@@ -66,6 +71,9 @@ export default function HelloPayment() {
 
   const { data: cntModels } = useCountModels();
   const { data: modelInfo } = useGetModelInfo(modelId);
+  const { data: modelInfoByMetadataId } = useGetModalByMetadataId(metadataId);
+  const { data: modelInfoByCreator } = useGetModelsByCreator(creator);
+  const { data: allModels } = useGetAllModels();
   const { mutateAsync: registerModel } = useRegisterModel();
   const { mutateAsync: updateModel } = useUpdateModel();
   const { data: userDepositAmount } = useGetDeposit(userDepositAccount);
@@ -76,6 +84,7 @@ export default function HelloPayment() {
   const handleRegisterModel = async () => {
     await registerModel({
       feePerPrompt,
+      metadataId,
     });
   };
 
@@ -230,12 +239,44 @@ export default function HelloPayment() {
       <span>{JSON.stringify(modelInfo)}</span>
       {/* ========================== */}
       <br />
+      <span>Model info by metadata id</span>
+      <input
+        type="text"
+        defaultValue={1}
+        className="border-black border-2 rounded-md m-2"
+        placeholder="Metadata Id"
+        onChange={(t) => setMetadataId(Number(t.target.value))}
+      />
+      <span>{JSON.stringify(modelInfoByMetadataId)}</span>
+      {/* ========================== */}
+      <br />
+      <span>Models info by creator</span>
+      <input
+        type="text"
+        className="border-black border-2 rounded-md m-2"
+        placeholder="Metadata Id"
+        onChange={(t) => setCreator(t.target.value)}
+      />
+      <span>{JSON.stringify(modelInfoByCreator)}</span>
+      {/* ========================== */}
+      <br />
+      <br />
+      <span>All models: {JSON.stringify(allModels)}</span>
+      <br />
+      {/* ========================== */}
+      <br />
       <span>Register new model</span>
       <input
         type="text"
         className="border-black border-2 rounded-md m-2"
         placeholder="Fee per prompt"
         onChange={(t) => setFeePerPrompt(t.target.value)}
+      />
+      <input
+        type="text"
+        className="border-black border-2 rounded-md m-2"
+        placeholder="Metadata id"
+        onChange={(t) => setMetadataId(Number(t.target.value))}
       />
       <button
         className="bg-purple-300 rounded-md p-1"
