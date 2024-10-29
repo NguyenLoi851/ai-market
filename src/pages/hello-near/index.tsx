@@ -5,8 +5,8 @@ import styles from "@/styles/app.module.css";
 import { NearContext } from "@/wallets/near";
 
 import { HelloNearContract } from "../../config";
-import { useViewGreeting } from "@/hooks/use-view-greeting";
-import { useSetGreeting } from "@/hooks/use-set-greeting";
+import { useViewGreeting } from "@/hooks/hello-near/use-view-greeting";
+import { useSetGreeting } from "@/hooks/hello-near/use-set-greeting";
 
 // Contract that the app will interact with
 const CONTRACT = HelloNearContract;

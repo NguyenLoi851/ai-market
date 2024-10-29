@@ -1,13 +1,13 @@
 import "@/styles/globals.css";
 import type { AppProps } from "next/app";
 import { useEffect, useState } from "react";
-import { NetworkId } from "@/config";
+import { FTNearContract, NetworkId, PaymentNearContract } from "@/config";
 import { NearContext, Wallet } from "@/wallets/near";
 import { Navigation } from "@/components/navigation";
 import { MainLayout } from "@/layouts";
 import { QueryClient, QueryClientProvider } from "react-query";
 
-const wallet = new Wallet({ networkId: NetworkId });
+const wallet = new Wallet({ networkId: NetworkId, createAccessKeyFor: PaymentNearContract });
 
 const queryClient = new QueryClient()
 
