@@ -3,21 +3,21 @@ import { PaymentNearContract } from "@/config";
 import { useContext } from "react";
 import { NearContext } from "@/wallets/near";
 
-export const useGetModelInfo = (modelId: number) => {
+export const useGetModelsByCreator = (creator: string) => {
   const { signedAccountId, wallet } = useContext(NearContext);
 
   const fetchModel = async () => {
-    if (!wallet || !signedAccountId || !modelId) return;
+    if (!wallet || !signedAccountId || !creator) return;
 
     const modelInfo = await wallet.viewMethod({
       contractId: PaymentNearContract,
-      method: "get_model_info",
-      args: { model_id: modelId },
+      method: "get_models_by_creator",
+      args: { creator: creator == "" ? signedAccountId : creator },
     });
     return modelInfo;
   };
 
-  return useQuery(["ftModel"], fetchModel, {
-    enabled: !!wallet && !!signedAccountId && !!modelId, // Fetch only if modelId is provided
+  return useQuery(["ftModelByCreator"], fetchModel, {
+    enabled: !!wallet && !!signedAccountId && !!creator, // Fetch only if creator is provided
   });
 };
