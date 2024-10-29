@@ -1,6 +1,16 @@
-const contractPerNetwork = {
+const helloContractPerNetwork = {
   mainnet: "hello.near-examples.near",
   testnet: "hello.near-examples.testnet",
+};
+
+const paymentContractPerNetwork = {
+  mainnet: "hello.near-examples.near",
+  testnet: "narrow-shade.testnet",
+};
+
+const ftContractPerNetwork = {
+  mainnet: "hello.near-examples.near",
+  testnet: "adhesive-lizards.testnet",
 };
 
 // Chains for EVM Wallets
@@ -20,5 +30,7 @@ const evmWalletChains = {
 };
 
 export const NetworkId = "testnet";
-export const HelloNearContract = contractPerNetwork[NetworkId];
+export const HelloNearContract = helloContractPerNetwork[NetworkId];
+export const PaymentNearContract = paymentContractPerNetwork[NetworkId];
+export const FTNearContract = ftContractPerNetwork[NetworkId];
 export const EVMWalletChain = evmWalletChains[NetworkId];

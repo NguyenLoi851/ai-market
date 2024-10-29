@@ -17,6 +17,7 @@
     "@near-wallet-selector/my-near-wallet": "^8.9.14",
     "@near-wallet-selector/sender": "^8.9.14",
     "@web3modal/wagmi": "^5.1.11",
+    "bignumber.js": "^9.1.2",
     "near-api-js": "^5.0.1",
     "next": "15.0.1",
     "react": "19.0.0-rc-69d4b800-20241021",
