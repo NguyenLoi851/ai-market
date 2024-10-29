@@ -24,6 +24,7 @@ export function useWithdraw() {
     {
       onSuccess: () => {
         queryClient.invalidateQueries(["ftDeposit"]);
+        queryClient.invalidateQueries(["ftBalance"]);
       },
     }
   );

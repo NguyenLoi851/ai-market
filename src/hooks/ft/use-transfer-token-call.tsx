@@ -34,6 +34,7 @@ export function useTransferTokenCall() {
     {
       onSuccess: () => {
         queryClient.invalidateQueries(["ftBalance"]);
+        queryClient.invalidateQueries(["ftDeposit"]);
       },
     }
   );
