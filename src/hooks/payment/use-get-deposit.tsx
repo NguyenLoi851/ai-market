@@ -20,5 +20,7 @@ export const useGetDeposit = (userDepositAccount: string) => {
     return userDeposit;
   };
 
-  return useQuery(["ftDeposit"], fetchDeposit);
+  return useQuery(["ftDeposit"], fetchDeposit, {
+    enabled: !!wallet && !!signedAccountId,
+  });
 };

@@ -3,7 +3,6 @@ import type { AppProps } from "next/app";
 import { useEffect, useState } from "react";
 import { FTNearContract, NetworkId, PaymentNearContract } from "@/config";
 import { NearContext, Wallet } from "@/wallets/near";
-import { Navigation } from "@/components/navigation";
 import { MainLayout } from "@/layouts";
 import { QueryClient, QueryClientProvider } from "react-query";
 
