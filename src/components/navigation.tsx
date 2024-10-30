@@ -33,10 +33,10 @@ export const Navigation = () => {
 
     if (signedAccountId) {
       setAction(() => () => wallet.signOut()); // Use a callback function
-      setLabel(`Logout ${signedAccountId}`);
+      setLabel(`Disconnect ${signedAccountId}`);
     } else {
       setAction(() => () => wallet.signIn()); // Use a callback function
-      setLabel("Login");
+      setLabel("Connect wallet");
     }
   }, [signedAccountId, wallet]);
 
@@ -61,8 +61,24 @@ export const Navigation = () => {
             {label}
           </button>
         </div>
-        <div>Balance: {ftBalance ? new BigNumber(ftBalance).shiftedBy(-8).toNumber(): "Loading ..."} OpenAgents Token</div>
-        <div>Deposited Amount: {userDepositAmount ? new BigNumber(userDepositAmount).shiftedBy(-8).toNumber(): "Loading ..."} OpenAgents Token</div>
+        {signedAccountId && (
+          <>
+            <div>
+              Balance:{" "}
+              {ftBalance
+                ? new BigNumber(ftBalance).shiftedBy(-8).toNumber()
+                : "Loading ..."}{" "}
+              OpenAgents Token
+            </div>
+            <div>
+              Deposited Amount:{" "}
+              {userDepositAmount
+                ? new BigNumber(userDepositAmount).shiftedBy(-8).toNumber()
+                : "Loading ..."}{" "}
+              OpenAgents Token
+            </div>
+          </>
+        )}
         <span>(dev TODO: Use modal for better UX)</span>
         <input
           type="text"

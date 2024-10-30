@@ -5,10 +5,10 @@ import { useContext } from "react";
 import { NearContext } from "@/wallets/near";
 
 export const useCountModels = () => {
-  const { signedAccountId, wallet } = useContext(NearContext);
+  const { wallet } = useContext(NearContext);
 
   const fetchModels = async () => {
-    if (!wallet || !signedAccountId) return;
+    if (!wallet) return;
 
     const cntNumber = await wallet.viewMethod({
       contractId: PaymentNearContract,
@@ -18,6 +18,6 @@ export const useCountModels = () => {
   };
 
   return useQuery(["ftCountModels"], fetchModels, {
-    enabled: !!wallet && !!signedAccountId,
+    enabled: !!wallet,
   });
 };
