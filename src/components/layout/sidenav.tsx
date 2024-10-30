@@ -1,28 +1,36 @@
 import Link from 'next/link';
 import NavLinks from '@/components/layout/nav-links';
-import AcmeLogo from '@/components/logo/logo';
 import { PowerIcon } from '@heroicons/react/24/outline';
+import Search from '@/components/creators/search';
+import { featchModelTypes } from '@/lib/actions/model';
+import { useEffect, useState } from 'react';
+import type { ModelType } from '@/lib/definitions/model';
 
 export default function SideNav() {
+  const [modelTypes, setModelTypes] = useState<ModelType[]>([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const types = await featchModelTypes();
+      setModelTypes(types);
+    };
+    fetchData();
+  }, []);
+
+
   return (
-    <div className="flex h-full flex-col px-3 py-4 md:px-2">
-      <Link
-        className="mb-2 flex h-20 items-end justify-start rounded-md bg-blue-600 p-4 md:h-40"
-        href="/"
-      >
-        <div className="w-32 text-white md:w-40">
-          <AcmeLogo />
-        </div>
-      </Link>
-      <div className="flex grow flex-row justify-between space-x-2 md:flex-col md:space-x-0 md:space-y-2">
-        <NavLinks />
-        <div className="hidden h-auto w-full grow rounded-md bg-gray-50 md:block"></div>
-        <form>
-          <button className="flex h-[48px] w-full grow items-center justify-center gap-2 rounded-md bg-gray-50 p-3 text-sm font-medium hover:bg-sky-100 hover:text-blue-600 md:flex-none md:justify-start md:p-2 md:px-3">
-            <PowerIcon className="w-6" />
-            <div className="hidden md:block">Sign Out</div>
-          </button>
-        </form>
+    <div className="flex flex-col px-4 py-4 md:px-2">
+      <div className="px-0.5 pb-4">
+        <Search placeholder='Search Model...' />
+      </div>
+      <div className="flex grow flex-col max-w-lg pl-2 overflow-y-auto space-x-2 md:flex-col md:space-x-0 md:space-y-2">
+        {modelTypes.map((type) => (
+          <label key={type.type} className="flex items-center space-x-2">
+            <input type="checkbox" value={type.type} className="form-checkbox" />
+            <span>{type.type}</span>
+          </label>
+        ))}
+
       </div>
     </div>
   );
