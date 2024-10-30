@@ -7,7 +7,7 @@ export const useGetModelsByCreator = (creator: string) => {
   const { signedAccountId, wallet } = useContext(NearContext);
 
   const fetchModel = async () => {
-    if (!wallet || !signedAccountId || !creator) return;
+    if (!wallet || !creator) return;
 
     const modelInfo = await wallet.viewMethod({
       contractId: PaymentNearContract,
@@ -18,6 +18,6 @@ export const useGetModelsByCreator = (creator: string) => {
   };
 
   return useQuery(["ftModelByCreator"], fetchModel, {
-    enabled: !!wallet && !!signedAccountId && !!creator, // Fetch only if creator is provided
+    enabled: !!wallet && !!creator, // Fetch only if creator is provided
   });
 };

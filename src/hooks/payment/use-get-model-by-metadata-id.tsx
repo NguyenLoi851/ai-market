@@ -4,10 +4,10 @@ import { useContext } from "react";
 import { NearContext } from "@/wallets/near";
 
 export const useGetModalByMetadataId = (metadataId: number) => {
-  const { signedAccountId, wallet } = useContext(NearContext);
+  const { wallet } = useContext(NearContext);
 
   const fetchModel = async () => {
-    if (!wallet || !signedAccountId || !metadataId) return;
+    if (!wallet || !metadataId) return;
 
     const modelInfo = await wallet.viewMethod({
       contractId: PaymentNearContract,
@@ -18,6 +18,6 @@ export const useGetModalByMetadataId = (metadataId: number) => {
   };
 
   return useQuery(["ftModelByMetadata"], fetchModel, {
-    enabled: !!wallet && !!signedAccountId && !!metadataId, // Fetch only if metadataId is provided
+    enabled: !!wallet && !!metadataId, // Fetch only if metadataId is provided
   });
 };
