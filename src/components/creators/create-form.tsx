@@ -15,7 +15,8 @@ export default function Form() {
   const router = useRouter();
 
   const handleSubmit = async (formData : FormData) => {
-    await createModel(formData);
+    let id = await createModel(formData);
+    console.log(id);
     router.push("/creators");
   }
 
