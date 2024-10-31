@@ -21,7 +21,7 @@ export type State = {
     name?: string[];
     type?: string[];    
   };
-  message?: string | null;
+  message?: string | null;  
 };
 
 const CreateModel = FormSchema.omit({ id: true, date: true });
