@@ -15,6 +15,7 @@ import { Overview } from './overview';
 import { ChatRequestOptions, ChatResponse } from '@/lib/definitions/chat';
 import { GetServerSideProps } from 'next';
 import { Arapey } from 'next/font/google';
+import { usePayModel } from '@/hooks/payment/use-pay-model';
 
 export function Chat({
   id,
@@ -29,6 +30,7 @@ export function Chat({
   const [messages, setMessages] = useState(initialMessages);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const {mutateAsync: payModel} = usePayModel()
 
   const handleSubmit = async (e?: {preventDefault?: () => void;}, chatRequestOptions?: ChatRequestOptions) => {
     if(e && e.preventDefault){
@@ -74,6 +76,8 @@ export function Chat({
     });
 
     const result : ChatResponse = await response.json() as ChatResponse;
+
+    await payModel(Number(id))
     return result;
   }
 

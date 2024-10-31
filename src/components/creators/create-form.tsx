@@ -15,7 +15,7 @@ import { useState } from "react";
 export default function Form() {
   const router = useRouter();
   const { mutateAsync: batchRegisterModel } = useBatchRegisterModel();
-  const [feePerPrompt, setFeePerPrompt] = useState("");
+  const [feePerPrompt, setFeePerPrompt] = useState("0.01");
 
   const handleSubmit = async (formData: FormData) => {
     let id = await createModel(formData);
