@@ -4,7 +4,7 @@ import { z } from "zod";
 import { sql } from "@vercel/postgres";
 import { revalidatePath, revalidateTag } from "next/cache";
 import { redirect } from "next/navigation";
-import type { ModelView, ModelType } from "@/lib/definitions/model";
+import type { ModelView, ModelType, Model } from "@/lib/definitions/model";
 
 const FormSchema = z.object({
   id: z.string(),
@@ -46,11 +46,12 @@ export async function createModel(formData: FormData) {
   const date = new Date().toISOString().split("T")[0];
 
   // insert to db
-  await sql`
+  let res = await sql<Model>`
       INSERT INTO models (name, description, type, date)
       VALUES (${name}, ${description}, ${type}, ${date})
+      RETURNING row_num
     `;
-
+  return res.rows[0].row_num;
   // delete cache
   // revalidatePath("/creators");
   // route to invoices
@@ -64,7 +65,8 @@ export async function fetchModels() {
         SELECT
           name,
           description,
-          type
+          type,
+          row_num
         FROM models
         ORDER BY name ASC
       `;
