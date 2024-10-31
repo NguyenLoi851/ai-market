@@ -6,7 +6,6 @@ export const MainLayout = ({ children }: HocProps) => {
     <div>
       <Header />
         <div>{children}</div>
-      <Footer />
     </div>
   );
 };
