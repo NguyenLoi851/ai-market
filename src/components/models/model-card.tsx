@@ -22,6 +22,9 @@ export default function ModelCard({ model } : {model : ModelView}) {
         </div>
         <h3 className="font-bold text-lg">{model.name}</h3>
         <p className="text-gray-500">{model.description}</p>
+        <p className="text-gray-500">Creator: {model.creator}</p>
+        <p className="text-gray-500">Number of usage: {model.usageCount}</p>
+        <p className="text-gray-500">Fee/prompt {model.feePerPrompt} OpenAgents Token</p>
         <div className="flex items-center mt-4 space-x-2">
           <span className="bg-blue-100 text-blue-600 text-xs px-2 py-1 rounded">
             {model.type}

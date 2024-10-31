@@ -12,7 +12,13 @@ export function useBatchRegisterModel() {
   const queryClient = useQueryClient();
 
   const mutation = useMutation(
-    async ({ feePerPrompt }: { feePerPrompt: string }) => {
+    async ({
+      feePerPrompt,
+      metadataId,
+    }: {
+      feePerPrompt: string;
+      metadataId: number;
+    }) => {
       if (!wallet) return;
 
       const ftTx = {
@@ -41,6 +47,7 @@ export function useBatchRegisterModel() {
                 fee_per_prompt: new BigNumber(feePerPrompt)
                   .shiftedBy(8)
                   .toString(),
+                metadata_id: metadataId,
               },
               gas: THIRTY_TGAS,
               deposit: 0,
