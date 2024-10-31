@@ -119,6 +119,7 @@ export default function HelloPayment() {
   const handleBatchRegisterModel = async () => {
     await batchRegisterModel({
       feePerPrompt,
+      metadataId,
     });
   };
 

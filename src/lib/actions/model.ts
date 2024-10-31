@@ -49,10 +49,9 @@ export async function createModel(formData: FormData) {
   let res = await sql<Model>`
       INSERT INTO models (name, description, type, date)
       VALUES (${name}, ${description}, ${type}, ${date})
-      RETURNING id
+      RETURNING row_num
     `;
-
-  return res.rows[0].id;
+  return res.rows[0].row_num;
   // delete cache
   // revalidatePath("/creators");
   // route to invoices
@@ -66,7 +65,8 @@ export async function fetchModels() {
         SELECT
           name,
           description,
-          type
+          type,
+          row_num
         FROM models
         ORDER BY name ASC
       `;
