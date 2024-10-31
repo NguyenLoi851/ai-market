@@ -5,6 +5,7 @@ import Search from '@/components/creators/search';
 import { featchModelTypes } from '@/lib/actions/model';
 import { useEffect, useState } from 'react';
 import type { ModelType } from '@/lib/definitions/model';
+import { Balance } from '../balance';
 
 export default function SideNav() {
   const [modelTypes, setModelTypes] = useState<ModelType[]>([]);
@@ -19,6 +20,8 @@ export default function SideNav() {
 
 
   return (
+    <>
+    <Balance />
     <div className="flex flex-col px-4 py-4 md:px-2">
       <div className="px-0.5 pb-4">
         <Search placeholder='Search Model...' />
@@ -33,5 +36,6 @@ export default function SideNav() {
 
       </div>
     </div>
+    </>
   );
 }
