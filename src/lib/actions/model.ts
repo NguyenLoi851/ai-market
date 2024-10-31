@@ -21,7 +21,7 @@ export type State = {
     name?: string[];
     type?: string[];    
   };
-  message?: string | null;
+  message?: string | null;  
 };
 
 const CreateModel = FormSchema.omit({ id: true, date: true });
@@ -46,10 +46,10 @@ export async function createModel(formData: FormData) {
   const date = new Date().toISOString().split("T")[0];
 
   // insert to db
-  // await sql`
-  //     INSERT INTO models (name, description, type, date)
-  //     VALUES (${name}, ${description}, ${type}, ${date})
-  //   `;
+  await sql`
+      INSERT INTO models (name, description, type, date)
+      VALUES (${name}, ${description}, ${type}, ${date})
+    `;
 
   // delete cache
   // revalidatePath("/creators");
