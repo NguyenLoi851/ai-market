@@ -39,7 +39,7 @@ export const Navigation = () => {
   return (
     <nav className="navbar navbar-expand-lg w-full">
       <div className="container-fluid flex items-center space-x-4 text-gray-500 ">
-        <Link href="/" passHref legacyBehavior >
+        <Link href="/" passHref legacyBehavior>
           <Image
             priority
             src={NearLogo}
@@ -77,13 +77,12 @@ export const Navigation = () => {
             <div className="hover:text-black pl-8">Help</div>
           </Link> */}
         </div>
-        
 
         <div className="flex-1"></div>
 
         <div className="navbar-nav pt-1">
           <button
-            className="bg-blue-300 border-black border-2"
+            className="bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg shadow-md transition duration-200 ease-in-out transform hover:scale-105"
             onClick={action || (() => {})}
           >
             {label}
