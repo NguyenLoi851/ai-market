@@ -15,7 +15,7 @@ export default function Page() {
           },
         ]}
       /> */}
-      <div className="flex-grow p-6 md:overflow-y-auto md:p-12">
+      <div className="flex-grow px-4 md:overflow-y-auto md:px-12 pt-4">
         <Form/>
       </div>
     </main>

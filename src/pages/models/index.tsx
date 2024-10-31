@@ -6,11 +6,14 @@ import ModelCard from "@/components/models/model-card";
 import { useGetAllModels } from "@/hooks/payment/use-get-all-models";
 import { NearContext } from "@/wallets/near";
 import BigNumber from "bignumber.js";
+import { useRouter } from "next/router";
 
 export default function Models() {
   const [modelViews, setModelViews] = useState<ModelView[]>([]);
 
   const { data: allModelsFromBlockchain } = useGetAllModels();
+
+  const router = useRouter();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -60,6 +63,10 @@ export default function Models() {
     };
     fetchData();
   }, [allModelsFromBlockchain]);
+
+  useEffect(() => {
+    console.log(router.query)
+  }, [router.query])
 
   return (
     <div className="flex h-screen flex-col md:flex-row md:overflow-hidden">
