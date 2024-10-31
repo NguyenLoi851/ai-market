@@ -189,7 +189,7 @@ export function MultimodalInput({
         value={input}
         onChange={handleInput}
         className="min-h-[24px] overflow-hidden border resize-none rounded-xl p-4 focus-visible:ring-0 focus-visible:ring-offset-0 text-base bg-muted"
-        rows={3}
+        rows={2}
         onKeyDown={(event) => {
           if (event.key === 'Enter' && !event.shiftKey) {
             event.preventDefault();
@@ -226,7 +226,7 @@ export function MultimodalInput({
         </Button>
       )}
 
-      <Button
+      {/* <Button
         className="rounded-full p-1.5 h-fit absolute bottom-2 right-10 m-0.5 dark:border-zinc-700"
         onClick={(event) => {
           event.preventDefault();
@@ -236,7 +236,7 @@ export function MultimodalInput({
         disabled={isLoading}
       >
         <PaperclipIcon size={14} />
-      </Button>
+      </Button> */}
     </div>
   );
 }

@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 import { Sparkles } from 'lucide-react';
 import { ReactNode } from 'react';
+import { Markdown } from './markdown';
 
 // import { PreviewAttachment } from './preview-attachment';
 // import { Weather } from './weather';
@@ -30,7 +31,7 @@ export const Message = ({
         <div className="flex flex-col gap-2 w-full">
           {content && (
             <div className="flex flex-col gap-4">
-              {content as string}
+              <Markdown>{content as string}</Markdown>
             </div>
           )}
         </div>
