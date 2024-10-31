@@ -12,7 +12,9 @@ import type { CreateMessage, Message } from '@/lib/definitions/message';
 
 import { MultimodalInput } from './multimodal-input';
 import { Overview } from './overview';
-import { ChatRequestOptions } from '@/lib/definitions/chat';
+import { ChatRequestOptions, ChatResponse } from '@/lib/definitions/chat';
+import { GetServerSideProps } from 'next';
+import { Arapey } from 'next/font/google';
 
 export function Chat({
   id,
@@ -32,9 +34,7 @@ export function Chat({
     if(e && e.preventDefault){
       e.preventDefault();
     }
-
     if (!input.trim()) return;
-    debugger
     setIsLoading(true);
     
     // Mô phỏng thêm tin nhắn mới vào danh sách
@@ -43,20 +43,39 @@ export function Chat({
       role: 'user',
       content: input,
     };
+
     setMessages((prev) => [...prev, newMessage]);
 
-    // Gọi API giả lập
-    setTimeout(() => {
-      const responseMessage : Message = {
-        id: `${messages.length + 2}`,
-        role: 'assistant',
-        content: `Bot trả lời: ${input}`,
-      };
-      setMessages((prev) => [...prev, responseMessage]);
-      setIsLoading(false);
-      setInput(''); // Xóa input sau khi gửi tin
-    }, 1000);
+    let res : ChatResponse =  await generateMessage([...messages, newMessage]);
+
+    let message : Message = mapChatResponseToMessages(res);
+
+    setMessages((prev) => [...prev, message]);
+
+    setIsLoading(false);
+    setInput('');
+
   };
+
+  const generateMessage = async (currentMessages : Message[]) : Promise<ChatResponse> => {
+    const Url : string = process.env.MODEL_CHAT_URL ?? "", 
+    Token : string = process.env.MODEL_AUTH_TOKEN ?? "",
+    ModelName: string = process.env.MODEL_NAME ?? "";
+    const response = await fetch( Url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${Token}`,
+      },
+      body: JSON.stringify({
+        model: ModelName,
+        messages: currentMessages,
+      }),
+    });
+
+    const result : ChatResponse = await response.json() as ChatResponse;
+    return result;
+  }
 
 
   const [messagesContainerRef, messagesEndRef] =
@@ -70,8 +89,26 @@ export function Chat({
     return null;
   }
 
+
   const stop = () => {
     
+  }
+
+  function mapChatResponseToMessages(chatResponse: ChatResponse): Message {
+    let choices : ChatResponse["choices"] = chatResponse.choices;
+    if(choices.length == 0){
+      return {
+        id: "",
+        content: "",
+        role: 'assistant'
+      };
+    }
+    let choice : ChatResponse["choices"][number] = choices[0];
+    return {
+      id: chatResponse.id + '-' + choice.index, // Tạo ID từ `id` của ChatResponse và index của message
+      content: choice.message.content,
+      role: choice.message.role,
+    }
   }
 
   return (

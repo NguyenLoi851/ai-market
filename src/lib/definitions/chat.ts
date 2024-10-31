@@ -46,3 +46,27 @@ export type ChatDb = {
   userId : string,
 
 }
+
+export type ChatResponse = {
+  id: string;
+  object: string;
+  created: number;
+  model: string;
+  prompt: Array<any>; // Nếu bạn có kiểu cụ thể cho prompt, hãy thay thế 'any' bằng kiểu chính xác.
+  choices: Array<{
+    finish_reason: string;
+    seed: number;
+    logprobs: null | any; // Nếu logprobs có kiểu cụ thể, thay 'any' bằng kiểu đó
+    index: number;
+    message: {
+      role: Message['role'];
+      content: string;
+      tool_calls: Array<any>; // Nếu tool_calls có kiểu cụ thể, thay 'any' bằng kiểu đó
+    };
+  }>;
+  usage: {
+    prompt_tokens: number;
+    completion_tokens: number;
+    total_tokens: number;
+  };
+};
