@@ -103,11 +103,11 @@ export function Chat({
   }
 
   function mapChatResponseToMessages(chatResponse: ChatResponse): Message {
-    let choices : ChatResponse["choices"] = chatResponse.choices;
+    let choices : ChatResponse["choices"] = chatResponse.choices ?? [];
     if(choices.length == 0){
       return {
         id: "",
-        content: "",
+        content: "Có lỗi xảy ra",
         role: 'assistant'
       };
     }

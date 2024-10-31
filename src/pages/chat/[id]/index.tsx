@@ -15,7 +15,7 @@ import { featchModel } from '@/lib/actions/model';
 export default function Page(props: { params: Promise<any> }) {
     const params = props.params;
     const router = useRouter();
-    const { asPath } = router;
+    const { asPath, query } = router;
 
     let initModel: Model = models[0];
     const [model, setModel] = useState<Model>(initModel);
@@ -40,7 +40,7 @@ export default function Page(props: { params: Promise<any> }) {
     }, [asPath]);
     // type casting
     const chat: Chat = {
-        id: "",
+        id: query['id'] as any,
         messages: [],
         userId: '',
         createdAt: new Date().getUTCDate()
