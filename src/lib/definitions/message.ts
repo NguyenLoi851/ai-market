@@ -2,7 +2,7 @@ export type Message = {
   /**
   A unique identifier for the message.
      */
-  id: string;
+  id?: string;
   /**
 The timestamp of the message.
    */

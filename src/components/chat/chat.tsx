@@ -43,7 +43,6 @@ export function Chat({
     
     // Mô phỏng thêm tin nhắn mới vào danh sách
     const newMessage : Message = {
-      id: `${messages.length + 1}`,
       role: 'user',
       content: input,
     };
