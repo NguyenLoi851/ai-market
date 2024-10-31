@@ -69,6 +69,7 @@ export async function fetchModels() {
     try {
       const data = await sql<ModelView>`
         SELECT
+        id,
           name,
           description,
           type,
@@ -102,6 +103,12 @@ export async function featchModelTypes(){
   }
 }
 
-// export async function featchModel(id: string){
+export async function featchModel(id: string){
+  // insert to db
+  let res = await sql<Model>`
+      SELECT * FROM models
+      WHERE id = ${id}
 
-// }
+    `;
+  return res.rows[0];
+}

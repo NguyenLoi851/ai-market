@@ -13,7 +13,10 @@ export default function ModelCard({ model }: { model: ModelView }) {
 
   const handleButtonClick = () => {
     // Navigate to the desired route with model.blockchainId
-    router.push(`/chat/${model.blockchainId}`);
+    router.push({
+      pathname: `/chat/${model.blockchainId}`,
+      query: {id : model.id}
+    });
   };
 
   const chatbotImgs = [Chatbot1, Chatbot2, Chatbot3, Chatbot4, Chatbot5];

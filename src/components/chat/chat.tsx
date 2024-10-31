@@ -24,13 +24,15 @@ export function Chat({
 }: {
   id: string;
   initialMessages: Array<Message>;
-  selectedModelName: Model['name'];
+  selectedModelName: Model;
 }) {
   
   const [messages, setMessages] = useState(initialMessages);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const {mutateAsync: payModel} = usePayModel()
+  const {mutateAsync: payModel} = usePayModel();
+
+  console.log(selectedModelName);
 
   const handleSubmit = async (e?: {preventDefault?: () => void;}, chatRequestOptions?: ChatRequestOptions) => {
     if(e && e.preventDefault){
@@ -60,9 +62,9 @@ export function Chat({
   };
 
   const generateMessage = async (currentMessages : Message[]) : Promise<ChatResponse> => {
-    const Url : string = process.env.MODEL_CHAT_URL ?? "", 
-    Token : string = process.env.MODEL_AUTH_TOKEN ?? "",
-    ModelName: string = process.env.MODEL_NAME ?? "";
+    const Url : string = selectedModelName.endpoint ?? "", 
+    Token : string = selectedModelName.key ?? "",
+    ModelName: string = selectedModelName.label ?? "";
     const response = await fetch( Url, {
       method: 'POST',
       headers: {
@@ -119,7 +121,7 @@ export function Chat({
 
   return (
     <div className="flex flex-col min-w-0 h-dvh bg-background h-screen-minus-92">
-      <ChatHeader selectedModelName={selectedModelName} />
+      <ChatHeader selectedModelName={selectedModelName.name} />
       <div
         ref={messagesContainerRef}
         className="flex flex-col min-w-0 gap-6 flex-1 overflow-y-scroll"
