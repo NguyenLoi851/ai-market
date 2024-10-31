@@ -4,6 +4,7 @@ import { useContext, useEffect, useState } from "react";
 import React from "react";
 import NearLogo from "/public/near-logo.svg";
 import { NearContext } from "@/wallets/near";
+import { Balance } from "./balance";
 
 export const Navigation = () => {
   const { signedAccountId, wallet } = useContext(NearContext);
@@ -15,10 +16,10 @@ export const Navigation = () => {
 
     if (signedAccountId) {
       setAction(() => () => wallet.signOut()); // Use a callback function
-      setLabel(`Logout ${signedAccountId}`);
+      setLabel(`Disconnect ${signedAccountId}`);
     } else {
       setAction(() => () => wallet.signIn()); // Use a callback function
-      setLabel("Login");
+      setLabel("Connect wallet");
     }
   }, [signedAccountId, wallet]);
 
@@ -52,10 +53,14 @@ export const Navigation = () => {
         <div className="flex-1"></div>
 
         <div className="navbar-nav pt-1">
-          <button className="bg-blue-300" onClick={action || (() => {})}>
+          <button
+            className="bg-blue-300 border-black border-2"
+            onClick={action || (() => {})}
+          >
             {label}
           </button>
         </div>
+        <Balance />
       </div>
     </nav>
   );

@@ -17,8 +17,8 @@ import { createContext } from "react";
 // ethereum wallets
 import { wagmiConfig, web3Modal } from "@/wallets/web3modal";
 
-const THIRTY_TGAS = "30000000000000";
-const NO_DEPOSIT = "0";
+export const THIRTY_TGAS = "30000000000000";
+export const NO_DEPOSIT = "0";
 
 interface WalletOptions {
   networkId: NetworkId; // Ensure it's of type NetworkId
