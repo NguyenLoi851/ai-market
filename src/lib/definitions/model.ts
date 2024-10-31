@@ -33,7 +33,8 @@ export const models : Array<Model> = [
     description: 'Small model for fast, lightweight tasks',
     id: 'a',
     date: '',
-    type : "chat"
+    type : "chat",
+    row_num: 1
   },
 ] as const;
 
