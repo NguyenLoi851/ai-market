@@ -7,7 +7,7 @@ export const useGetDeposit = (userDepositAccount: string) => {
   const { signedAccountId, wallet } = useContext(NearContext);
 
   const fetchDeposit = async () => {
-    if (!wallet) return;
+    if (!wallet || !signedAccountId) return;
 
     const userDeposit = await wallet.viewMethod({
       contractId: PaymentNearContract,
@@ -21,6 +21,6 @@ export const useGetDeposit = (userDepositAccount: string) => {
   };
 
   return useQuery(["ftDeposit"], fetchDeposit, {
-    enabled: !!wallet,
+    enabled: !!wallet && !!signedAccountId,
   });
 };
