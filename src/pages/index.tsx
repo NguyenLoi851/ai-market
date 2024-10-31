@@ -1,15 +1,16 @@
-import Image from "next/image";
-
-import NearLogo from "/public/near.svg";
-import NextLogo from "/public/next.svg";
-import { Cards } from "@/components/cards";
-import styles from "@/styles/app.module.css";
-import { MainLayout } from "@/layouts";
+import { useEffect } from "react";
+import { useRouter } from "next/router";
 
 export default function Index() {
+  const router = useRouter();
+
+  useEffect(() => {
+    router.push("/models");
+  }, [router]);
+
   return (
     <>
-      <div>Landing page</div>
+      <div></div>
     </>
   );
 }
