@@ -101,3 +101,7 @@ export async function featchModelTypes(){
     throw new Error('Failed to fetch all models.');
   }
 }
+
+// export async function featchModel(id: string){
+
+// }

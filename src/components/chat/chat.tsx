@@ -47,6 +47,7 @@ export function Chat({
     };
 
     setMessages((prev) => [...prev, newMessage]);
+    setInput('');
 
     let res : ChatResponse =  await generateMessage([...messages, newMessage]);
 
@@ -55,7 +56,6 @@ export function Chat({
     setMessages((prev) => [...prev, message]);
 
     setIsLoading(false);
-    setInput('');
 
   };
 
@@ -90,6 +90,8 @@ export function Chat({
     message: Message | CreateMessage,
     chatRequestOptions?: ChatRequestOptions
   ) => {
+    setInput(message.content);
+    await handleSubmit();
     return null;
   }
 
@@ -116,7 +118,7 @@ export function Chat({
   }
 
   return (
-    <div className="flex flex-col min-w-0 h-dvh bg-background">
+    <div className="flex flex-col min-w-0 h-dvh bg-background h-screen-minus-92">
       <ChatHeader selectedModelName={selectedModelName} />
       <div
         ref={messagesContainerRef}

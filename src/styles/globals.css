@@ -19,3 +19,7 @@ body {
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+.h-screen-minus-92 {
+  height: calc(100vh - 92px);
+}

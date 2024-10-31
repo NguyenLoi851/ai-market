@@ -1,5 +1,10 @@
 import type { ModelView } from "@/lib/definitions/model";
 import ModelChat from "/public/model-chat.png";
+import Chatbot1 from "/public/models/chatbot_1.png";
+import Chatbot2 from "/public/models/chatbot_2.png";
+import Chatbot3 from "/public/models/chatbot_3.png";
+import Chatbot4 from "/public/models/chatbot_4.png";
+import Chatbot5 from "/public/models/chatbot_5.png";
 import Image from "next/image";
 import { useRouter } from 'next/router';
 
@@ -11,12 +16,14 @@ export default function ModelCard({ model }: { model: ModelView }) {
     router.push(`/chat/${model.blockchainId}`);
   };
 
+  const chatbotImgs = [Chatbot1, Chatbot2, Chatbot3, Chatbot4, Chatbot5];
+
   return (
     <div className="border rounded-lg p-4 bg-white shadow-md w-full max-w-xs h-fit">
       <div className="flex items-center justify-between mb-2">
         <Image
           priority
-          src={ModelChat}
+          src={chatbotImgs[Math.floor(Math.random() * 4)]}
           alt="Model"
           width="30"
           height="24"
