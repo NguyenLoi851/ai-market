@@ -14,6 +14,9 @@ const FormSchema = z.object({
   description: z.string(),
   type: z.enum(["chat", "image"]),
   date: z.string(),
+  label: z.string(),
+  key: z.string(),
+  endpoint:z.string()
 });
 
 export type State = {
@@ -32,6 +35,9 @@ export async function createModel(formData: FormData) {
     name: formData.get("name"),
     description: formData.get("description"),
     type: formData.get("type"),
+    label: formData.get("label"),
+    key: formData.get("key"),
+    endpoint: formData.get("endpoint"),
   });
 
   // If form validation fails, return errors early. Otherwise, continue.
@@ -42,13 +48,13 @@ export async function createModel(formData: FormData) {
     };
   }
 
-  const { name, description, type } = validatedFields.data;
+  const { name, description, type, label, key, endpoint } = validatedFields.data;
   const date = new Date().toISOString().split("T")[0];
 
   // insert to db
   let res = await sql<Model>`
-      INSERT INTO models (name, description, type, date)
-      VALUES (${name}, ${description}, ${type}, ${date})
+      INSERT INTO models (name, description, type, date, label, key, endpoint)
+      VALUES (${name}, ${description}, ${type}, ${date}, ${label}, ${key}, ${endpoint})
       RETURNING row_num
     `;
   return res.rows[0].row_num;

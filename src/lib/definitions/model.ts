@@ -3,10 +3,12 @@ export type Model = {
     id: string;
     name: string;
     description: string,
-    type: 'chat',
-    date: string,
+    type: 'chat' | 'image',
+    date?: string,
     label: string,
-    row_num: number,
+    endpoint: string,
+    key: string,
+    row_num?: number,
   };
   
 export type ModelView = {
@@ -33,7 +35,10 @@ export const models : Array<Model> = [
     description: 'Small model for fast, lightweight tasks',
     id: 'a',
     date: '',
-    type : "chat"
+    type : "chat",
+    endpoint: '',
+    key: '',
+    row_num: 1
   },
 ] as const;
 

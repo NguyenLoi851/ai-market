@@ -19,7 +19,6 @@ export default function Form() {
 
   const handleSubmit = async (formData: FormData) => {
     let id = await createModel(formData);
-    console.log(id);
     await batchRegisterModel({
       feePerPrompt,
       metadataId: id as any,
@@ -29,18 +28,22 @@ export default function Form() {
 
   return (
     <>
-      <input
-        type="text"
-        className="border-black border-2 rounded-md m-2"
-        placeholder="Fee per prompt"
-        onChange={(t) => setFeePerPrompt(t.target.value)}
-      />
 
       <form action={handleSubmit}>
+        <div className="mb-2 flex justify-end gap-4">
+          <Link
+            href="/creators"
+            className="flex h-10 items-center rounded-lg bg-gray-100 px-4 text-sm font-medium text-gray-600 transition-colors hover:bg-gray-200"
+          >
+            Cancel
+          </Link>
+          <Button type="submit">Create Model</Button>
+        </div>
+
         <div className="rounded-md bg-gray-50 p-4 md:p-6">
-          {/* Customer Name */}
+          {/* Model Name */}
           <div className="mb-4">
-            <label htmlFor="amount" className="mb-2 block text-sm font-medium">
+            <label htmlFor="name" className="mb-2 block text-sm font-medium">
               Name
             </label>
             <div className="relative mt-2 rounded-md">
@@ -50,6 +53,25 @@ export default function Form() {
                   name="name"
                   type="text"
                   placeholder="Enter model name"
+                  className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
+                />
+                <PencilIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
+              </div>
+            </div>
+          </div>
+
+          {/* Model Label */}
+          <div className="mb-4">
+            <label htmlFor="label" className="mb-2 block text-sm font-medium">
+              Label
+            </label>
+            <div className="relative mt-2 rounded-md">
+              <div className="relative">
+                <input
+                  id="label"
+                  name="label"
+                  type="text"
+                  placeholder="Enter model label"
                   className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
                 />
                 <PencilIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
@@ -72,6 +94,44 @@ export default function Form() {
                   name="description"
                   type="text"
                   placeholder="Enter Description"
+                  className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
+                />
+                <PencilIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
+              </div>
+            </div>
+          </div>
+
+          {/* Model Key */}
+          <div className="mb-4">
+            <label htmlFor="key" className="mb-2 block text-sm font-medium">
+              Key
+            </label>
+            <div className="relative mt-2 rounded-md">
+              <div className="relative">
+                <input
+                  id="key"
+                  name="key"
+                  type="text"
+                  placeholder="Enter model key"
+                  className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
+                />
+                <PencilIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
+              </div>
+            </div>
+          </div>
+
+          {/* Model Key */}
+          <div className="mb-4">
+            <label htmlFor="endpoint" className="mb-2 block text-sm font-medium">
+              Endpoint
+            </label>
+            <div className="relative mt-2 rounded-md">
+              <div className="relative">
+                <input
+                  id="endpoint"
+                  name="endpoint"
+                  type="text"
+                  placeholder="Enter model endpoint"
                   className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
                 />
                 <PencilIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
@@ -119,16 +179,28 @@ export default function Form() {
               </div>
             </div>
           </fieldset>
+
+          {/* Model Key */}
+          <div className="mt-4">
+            <label htmlFor="fee" className="mb-2 block text-sm font-medium">
+              Fee per prompt
+            </label>
+            <div className="relative mt-2 rounded-md">
+              <div className="relative">
+                <input
+                  id="fee"
+                  name="fee"
+                  type="text"
+                  placeholder="Enter fee per prompt"
+                  className="peer block w-full rounded-md border border-gray-200 py-2 pl-10 text-sm outline-2 placeholder:text-gray-500"
+                  onChange={(t) => setFeePerPrompt(t.target.value)}
+                />
+                <PencilIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
+              </div>
+            </div>
+          </div>
         </div>
-        <div className="mt-6 flex justify-end gap-4">
-          <Link
-            href="/creators"
-            className="flex h-10 items-center rounded-lg bg-gray-100 px-4 text-sm font-medium text-gray-600 transition-colors hover:bg-gray-200"
-          >
-            Cancel
-          </Link>
-          <Button type="submit">Create Model</Button>
-        </div>
+
       </form>
     </>
   );
