@@ -5,6 +5,8 @@ import { useGetDeposit } from "@/hooks/payment/use-get-deposit";
 import { NearContext } from "@/wallets/near";
 import BigNumber from "bignumber.js";
 import { useContext, useState } from "react";
+import { TextField, Button as MuiButton } from "@mui/material";
+import { AddCircleOutline } from "@mui/icons-material";
 
 export const Balance = () => {
   const { signedAccountId } = useContext(NearContext);
@@ -22,35 +24,56 @@ export const Balance = () => {
   };
 
   return (
-    <>
+    <div className="p-4">
       {signedAccountId && (
         <>
-          <div>
+          <div className="text-lg font-semibold mb-2">
             Balance:{" "}
-            {ftBalance
-              ? new BigNumber(ftBalance).shiftedBy(-8).toNumber()
-              : "Loading ..."}{" "}
-            OpenAgents Token
+            <span className="font-normal">
+              {ftBalance
+                ? new BigNumber(ftBalance).shiftedBy(-8).toNumber()
+                : "Loading ..."}{" "}
+              OpenAgents
+            </span>
           </div>
-          <div>
-            Deposited Amount:{" "}
-            {userDepositAmount
-              ? new BigNumber(userDepositAmount).shiftedBy(-8).toNumber()
-              : "Loading ..."}{" "}
-            OpenAgents Token
+          <div className="text-lg font-semibold mb-2">
+            Deposited:{" "}
+            <span className="font-normal">
+              {userDepositAmount
+                ? new BigNumber(userDepositAmount).shiftedBy(-8).toNumber()
+                : "Loading ..."}{" "}
+              OpenAgents
+            </span>
           </div>
         </>
       )}
-      <span>(dev TODO: Use modal for better UX)</span>
-      <input
-        type="text"
-        className="border-black border-2 rounded-md m-2"
-        placeholder="Deposit amount"
-        onChange={(t) => setTransferTokenAmount(Number(t.target.value))}
-      />
-      <button className="bg-purple-300 rounded-md p-1" onClick={handleDeposit}>
-        Deposit
-      </button>
-    </>
+      <div className="flex items-center mb-2">
+        <TextField
+          type="number"
+          label="Deposit Amount"
+          variant="outlined"
+          className="mr-2 flex-1" // added flex-1 for better width handling
+          onChange={(e) => setTransferTokenAmount(Number(e.target.value))}
+        />
+        <MuiButton
+          variant="contained"
+          color="primary"
+          onClick={handleDeposit}
+          startIcon={<AddCircleOutline />}
+          style={{
+            background: "linear-gradient(45deg, #3f51b5 30%, #ff4081 90%)",
+            color: "#fff",
+            padding: "12px 24px",
+            borderRadius: "8px",
+            fontWeight: "bold",
+            textTransform: "none",
+            boxShadow: "0 3px 5px 2px rgba(63, 81, 181, .3)",
+          }}
+          disabled={!transferTokenAmount || transferTokenAmount <= 0}
+        >
+          Deposit
+        </MuiButton>
+      </div>
+    </div>
   );
 };
