@@ -15,7 +15,7 @@ import { useState } from "react";
 export default function Form() {
   const router = useRouter();
   const { mutateAsync: batchRegisterModel } = useBatchRegisterModel();
-  const [feePerPrompt, setFeePerPrompt] = useState("");
+  const [feePerPrompt, setFeePerPrompt] = useState("0.01");
 
   const handleSubmit = async (formData: FormData) => {
     let id = await createModel(formData);
@@ -31,6 +31,7 @@ export default function Form() {
     <>
       <input
         type="text"
+        defaultValue="0.01"
         className="border-black border-2 rounded-md m-2"
         placeholder="Fee per prompt"
         onChange={(t) => setFeePerPrompt(t.target.value)}

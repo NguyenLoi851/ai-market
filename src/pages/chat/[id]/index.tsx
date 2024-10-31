@@ -9,10 +9,13 @@ import { Chat } from '@/lib/definitions/chat';
 import { DEFAULT_MODEL_NAME, models } from '@/lib/definitions/model';
 import { convertToUIMessages } from '@/lib/utils';
 import { DbMessage } from '@/lib/definitions/message';
+import { useRouter } from 'next/router';
 
 export default function Page(props: { params: Promise<any> }) {
   const params = props.params;
-  const id = "123";
+  const router = useRouter();
+  const { id } = router.query;
+
 //   const chatFromDb = await getChatById({ id });
 
 //   if (!chatFromDb) {
@@ -21,7 +24,7 @@ export default function Page(props: { params: Promise<any> }) {
 
   // type casting
   const chat: Chat = {
-      id: id,
+      id: id as any,
       messages: [],
       userId: '',
       createdAt: new Date().getUTCDate()
